@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mohammedsalam_daroshirani_comp228lab5.HelloController">
+   <children>
+      <TabPane layoutX="6.0" layoutY="7.0" prefHeight="417.0" prefWidth="589.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Player Information">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TextField fx:id="player_id" layoutX="389.0" layoutY="48.0" />
+                        <TextField fx:id="first_name" layoutX="389.0" layoutY="90.0" />
+                        <TextField fx:id="last_name" layoutX="389.0" layoutY="135.0" />
+                        <TextField fx:id="address" layoutX="389.0" layoutY="182.0" />
+                        <TextField fx:id="postal_code" layoutX="389.0" layoutY="226.0" />
+                        <TextField fx:id="province" layoutX="389.0" layoutY="269.0" />
+                        <TextField fx:id="phone_number" layoutX="389.0" layoutY="315.0" />
+                        <Label layoutX="282.0" layoutY="52.0" text="Player ID" />
+                        <Label layoutX="277.0" layoutY="94.0" text="First Name" />
+                        <Label layoutX="278.0" layoutY="139.0" text="Last Name" />
+                        <Label layoutX="281.0" layoutY="186.0" text="Address" />
+                        <Label layoutX="274.0" layoutY="230.0" text="Postal Code" />
+                        <Label layoutX="280.0" layoutY="273.0" text="Province" />
+                        <Label layoutX="266.0" layoutY="319.0" text="Phone Number" />
+                        <Button fx:id="insertPlayerInformation" layoutX="47.0" layoutY="103.0" mnemonicParsing="false" onAction="#onInsertPlayerInformationButtonClick" text="Insert Player Information" />
+                        <Button fx:id="updatePlayerInformation" layoutX="41.0" layoutY="218.0" mnemonicParsing="false" onAction="#onUpdatePlayerInformationButtonClick" text="Update Player Information " />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Game Information">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TextField fx:id="game_id" layoutX="385.0" layoutY="124.0" />
+                        <TextField fx:id="game_title" layoutX="385.0" layoutY="194.0" />
+                        <Label layoutX="279.0" layoutY="128.0" text="Game ID" />
+                        <Label layoutX="269.0" layoutY="198.0" text="Game Name" />
+                        <Button fx:id="insertGameInformation" layoutX="51.0" layoutY="161.0" mnemonicParsing="false" onAction="#onInsertGameInformationButtonClick" text="Insert Game Information" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
