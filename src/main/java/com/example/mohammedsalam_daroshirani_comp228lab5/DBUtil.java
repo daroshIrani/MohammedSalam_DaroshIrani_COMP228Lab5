@@ -205,49 +205,24 @@ public class DBUtil {   // Main DB class
 ////////////////////////////////////////////////////// UPDATING DATA FOR EACH TABLE ///////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public static void updatePlayerInformation(String sql) throws SQLException{
+    public static void updatePlayerInformation(String tableName, int player_id, String first_name, String last_name, String address, String postal_code, String province, String phone_number) throws SQLException{
+        dbConnect();
+
         JFrame frame;
         frame = new JFrame();
 
+        int searchP_id = Integer.parseInt(JOptionPane.showInputDialog(frame, "Please enter the ID of the Player you would like to update"));
 
-        CachedRowSet crs = RowSetProvider.newFactory().createCachedRowSet(); // collection type of class
+        String sql = "UPDATE player SET " +" first_name= '" + first_name + "'," + " last_name= '" + last_name + "'," + " address= '" + address + "'," + " postal_code= '" + postal_code + "'," + " province= '" + province + "'," + " phone_number= '" + phone_number + "'" + " WHERE player_id =" + searchP_id + ";" ;
+        statement.executeUpdate(sql);
 
-        //open db connection
-        dbConnect();
-
-        // creating resultSet to capture information from executeQuery which is part of statement class object
-        ResultSet resultSet = null;
-        try {
-            resultSet = statement.executeQuery(sql);
-            // cachedRowSet is populated with resultSet rows gotten when above SQL statement is run
-            crs.populate(resultSet);
-
-            while (resultSet.next()) {
-                // crs column names for respective rows
-                int player_id = resultSet.getInt("player_id");
-                String first_name = resultSet.getString("first_name");
-                String last_name = resultSet.getString("last_name");
-                String address = resultSet.getString("address");
-                String postal_code = resultSet.getString("postal_code");
-                String province = resultSet.getString("province");
-                String phone_number = resultSet.getString("phone_number");
-            }
-
-        } catch (SQLException e) {
-            System.out.println("Query did not run!");
-            System.out.println(e.getMessage());
-        }
-
-        // Always run statement.close after the statement is executed
         if (statement != null) {
             //Close Statement
             statement.close();
         }
-        //Close connection
-        dbDisconnect();
 
-        // crs is returned so that the method can be used to populate resultSET created in the controller method that uses it
-        return crs;
+
+
 
     }
 
