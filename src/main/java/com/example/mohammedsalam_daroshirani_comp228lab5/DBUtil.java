@@ -1,6 +1,7 @@
 package com.example.mohammedsalam_daroshirani_comp228lab5;
 import javax.sql.rowset.CachedRowSet;
 import javax.sql.rowset.RowSetProvider;
+import javax.swing.*;
 import java.sql.*;
 
 public class DBUtil {   // Main DB class
@@ -9,7 +10,9 @@ public class DBUtil {   // Main DB class
     private static Connection connection = null;
     private static Statement statement = null;
 
-    ///////////////////////////////////////////// CONNECTION CREATION AND DISCONNECTION ESTABLISHMENT (ALWAYS WHEN WORKING WITH JDBC //////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////// CONNECTION CREATION AND DISCONNECTION ESTABLISHMENT (ALWAYS WHEN WORKING WITH JDBC //////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public static void dbConnect() throws SQLException{ // Always 'throws exception' whenever you are working with DB's
         // connection to database method
         // String dbURL = "jdbc:oracle:thin:@[host name]:[port]:[SID]"; // Format to follow
@@ -43,14 +46,16 @@ public class DBUtil {   // Main DB class
         }
 
     }
-////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-////////////////////////////////////////////////// INSERT STATEMENT CREATION FOR GAME AND PLAYER DATA ///////////////////////////
-    public static void insertGameData(String tableName, int id, String name) throws SQLException{
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////// INSERT STATEMENT - CREATION FOR GAME AND PLAYER AND GAME_PLAYER DATA ///////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public static void insertPlayerAndGameData(String tableName, int player_game_id, int game_id, int player_id, String playing_date, int score) throws SQLException{
         dbConnect();
-        String sql = "INSERT INTO " + tableName + " VALUES(" + id + ",'" + name + "')";
+        String sql = "INSERT INTO " + tableName + " VALUES(" + player_game_id + ", " + game_id + ", " + player_id + ", '" + playing_date + "', " + score + ")";
         statement.executeUpdate(sql);
-        System.out.println(id + " , " + name + " is inserted!");
+        System.out.println(player_game_id + ", " + game_id + ", " + player_id + ", '" + playing_date + "' " + score + " is inserted");
         if (statement != null) {
             //Close Statement
             statement.close();
@@ -59,11 +64,11 @@ public class DBUtil {   // Main DB class
         dbDisconnect();
     }
 
-    public static void insertPlayerData(String tableName, int id, String name) throws SQLException{
+    public static void insertPlayerData(String tableName, int player_id, String first_name, String last_name, String address, String postal_code, String province, String phone_number ) throws SQLException{
         dbConnect();
-        String sql = "INSERT INTO " + tableName + " VALUES(" + id + ",'" + name + "')";
+        String sql = "INSERT INTO " + tableName + " VALUES(" + player_id + ",'" + first_name + "', '" + last_name + "', '" + address + "', '" + postal_code + "', '" + province + "', '" + phone_number + "')";
         statement.executeUpdate(sql);
-        System.out.println(id + " , " + name + " is inserted!");
+        System.out.println(player_id + ",'" + first_name + "', '" + last_name + "', '" + address + "', '" + postal_code + "', '" + province + "', '" + phone_number +" is inserted!");
         if (statement != null) {
             //Close Statement
             statement.close();
@@ -71,34 +76,212 @@ public class DBUtil {   // Main DB class
         //Close connection
         dbDisconnect();
     }
-///////////////////////////////////////////////////////
 
+    public static void insertGameData(String tableName, int game_id, String game_title) throws SQLException{
+        dbConnect();
+        String sql = "INSERT INTO " + tableName + " VALUES(" + game_id + ",'" + game_title + "')";
+        statement.executeUpdate(sql);
+        System.out.println(game_id + " , " + game_title + " is inserted!");
+        if (statement != null) {
+            //Close Statement
+            statement.close();
+        }
+        //Close connection
+        dbDisconnect();
+    }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////// QUERYING DATA From 3 tables individually ///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public static ResultSet queryPlayerData(String sql) throws SQLException {
+        CachedRowSet crs = RowSetProvider.newFactory().createCachedRowSet(); // collection type of class
+
+        //open db connection
+        dbConnect();
+
+        // creating resultSet to capture information from executeQuery which is part of statement class object
+        ResultSet resultSet = null;
+        try {
+            resultSet = statement.executeQuery(sql);
+            // cachedRowSet is populated with resultSet rows gotten when above SQL statement is run
+            crs.populate(resultSet);
+
+            while (resultSet.next()) {
+                // crs column names for respective rows
+                int player_id = resultSet.getInt("player_id");
+                String first_name = resultSet.getString("first_name");
+                String last_name = resultSet.getString("last_name");
+                String address = resultSet.getString("address");
+                String postal_code = resultSet.getString("postal_code");
+                String province = resultSet.getString("province");
+                String phone_number = resultSet.getString("phone_number");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Query did not run!");
+            System.out.println(e.getMessage());
+        }
+
+        // Always run statement.close after the statement is executed
+        if (statement != null) {
+            //Close Statement
+            statement.close();
+        }
+        //Close connection
+        dbDisconnect();
+
+        // crs is returned so that the method can be used to populate resultSET created in the controller method that uses it
+        return crs;
+    }
+
+    public static ResultSet queryGameData(String sql) throws SQLException {
+        CachedRowSet crs = RowSetProvider.newFactory().createCachedRowSet(); // collection type of class
+
+        //open db connection
+        dbConnect();
+
+        ResultSet resultSet = null;
+        try {
+            resultSet = statement.executeQuery(sql);
+            crs.populate(resultSet);
+
+            while (resultSet.next()) {
+                int game_id = resultSet.getInt("game_id");
+                String game_title = resultSet.getString("game_title");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Query did not run!");
+            System.out.println(e.getMessage());
+        }
+
+        // Always run statement.close after the statement is executed
+        if (statement != null) {
+            //Close Statement
+            statement.close();
+        }
+        //Close connection
+        dbDisconnect();
+        return crs;
+    }
+
+    public static ResultSet queryPlayerAndGameData(String sql) throws SQLException {
+        CachedRowSet crs = RowSetProvider.newFactory().createCachedRowSet(); // collection type of class
+
+        //open db connection
+        dbConnect();
+
+        ResultSet resultSet = null;
+        try {
+            resultSet = statement.executeQuery(sql);
+            crs.populate(resultSet);
+
+            while (resultSet.next()) {
+                String s_id = resultSet.getString("s_id");
+                String s_name = resultSet.getString("s_name");
+                System.out.println(s_id + " , " + s_name);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Query did not run!");
+            System.out.println(e.getMessage());
+        }
+
+        if (statement != null) {
+            //Close Statement
+            statement.close();
+        }
+        //Close connection
+        dbDisconnect();
+        return crs;
+    }
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////// UPDATING DATA FOR EACH TABLE ///////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public static void updatePlayerInformation(String sql) throws SQLException{
+        JFrame frame;
+        frame = new JFrame();
+
+
+        CachedRowSet crs = RowSetProvider.newFactory().createCachedRowSet(); // collection type of class
+
+        //open db connection
+        dbConnect();
+
+        // creating resultSet to capture information from executeQuery which is part of statement class object
+        ResultSet resultSet = null;
+        try {
+            resultSet = statement.executeQuery(sql);
+            // cachedRowSet is populated with resultSet rows gotten when above SQL statement is run
+            crs.populate(resultSet);
+
+            while (resultSet.next()) {
+                // crs column names for respective rows
+                int player_id = resultSet.getInt("player_id");
+                String first_name = resultSet.getString("first_name");
+                String last_name = resultSet.getString("last_name");
+                String address = resultSet.getString("address");
+                String postal_code = resultSet.getString("postal_code");
+                String province = resultSet.getString("province");
+                String phone_number = resultSet.getString("phone_number");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Query did not run!");
+            System.out.println(e.getMessage());
+        }
+
+        // Always run statement.close after the statement is executed
+        if (statement != null) {
+            //Close Statement
+            statement.close();
+        }
+        //Close connection
+        dbDisconnect();
+
+        // crs is returned so that the method can be used to populate resultSET created in the controller method that uses it
+        return crs;
+
+    }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////// DELETE STATEMENT CREATION TO DELETE SPECIFIC ROWS FROM GAME AND PLAYER DATA /////////////////////
-    public static void deleteGameData(String tableName, int id) throws SQLException{
-        dbConnect();
-        String sql = "DELETE FROM " + tableName + " WHERE s_id ="+ id;
-        statement.executeUpdate(sql);
-        System.out.println("Data is deleted!");
-        if (statement != null) {
-            //Close Statement
-            statement.close();
-        }
-        //Close connection
-        dbDisconnect();
-    }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public static void deletePlayerData(String tableName, int id) throws SQLException{
-        dbConnect();
-        String sql = "DELETE FROM " + tableName + " WHERE s_id ="+ id;
-        statement.executeUpdate(sql);
-        System.out.println("Data is deleted!");
-        if (statement != null) {
-            //Close Statement
-            statement.close();
-        }
+    //public static void deleteGameData(String tableName, int id) throws SQLException{
+        //dbConnect();
+        //String sql = "DELETE FROM " + tableName + " WHERE s_id ="+ id;
+        //statement.executeUpdate(sql);
+        //System.out.println("Data is deleted!");
+        //if (statement != null) {
+            ////Close Statement
+            //statement.close();
+        //}
+        ////Close connection
+        //dbDisconnect();
+    //}
+
+    //public static void deletePlayerData(String tableName, int id) throws SQLException{
+        //dbConnect();
+        //String sql = "DELETE FROM " + tableName + " WHERE s_id ="+ id;
+        //statement.executeUpdate(sql);
+        //System.out.println("Data is deleted!");
+        //if (statement != null) {
+            ////Close Statement
+            //statement.close();
+        //}
         //Close connection
-        dbDisconnect();
-    }
+        //dbDisconnect();
+    //}
 ///////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////

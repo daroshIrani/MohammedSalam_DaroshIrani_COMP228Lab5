@@ -9,49 +9,98 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Button?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mohammedsalam_daroshirani_comp228lab5.HelloController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mohammedsalam_daroshirani_comp228lab5.HelloController">
    <children>
-      <TabPane layoutX="6.0" layoutY="7.0" prefHeight="417.0" prefWidth="589.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane layoutX="6.0" layoutY="7.0" prefHeight="731.0" prefWidth="984.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="Player Information">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="354.0" prefWidth="672.0">
                      <children>
-                        <TextField fx:id="player_id" layoutX="389.0" layoutY="48.0" />
-                        <TextField fx:id="first_name" layoutX="389.0" layoutY="90.0" />
-                        <TextField fx:id="last_name" layoutX="389.0" layoutY="135.0" />
-                        <TextField fx:id="address" layoutX="389.0" layoutY="182.0" />
-                        <TextField fx:id="postal_code" layoutX="389.0" layoutY="226.0" />
-                        <TextField fx:id="province" layoutX="389.0" layoutY="269.0" />
-                        <TextField fx:id="phone_number" layoutX="389.0" layoutY="315.0" />
-                        <Label layoutX="282.0" layoutY="52.0" text="Player ID" />
+                        <TextField fx:id="pi_player_id" layoutX="389.0" layoutY="48.0" />
+                        <TextField fx:id="pi_first_name" layoutX="389.0" layoutY="90.0" />
+                        <TextField fx:id="pi_last_name" layoutX="389.0" layoutY="135.0" />
+                        <TextField fx:id="pi_address" layoutX="389.0" layoutY="182.0" />
+                        <TextField fx:id="pi_postal_code" layoutX="389.0" layoutY="226.0" />
+                        <TextField fx:id="pi_province" layoutX="389.0" layoutY="269.0" />
+                        <TextField fx:id="pi_phone_number" layoutX="389.0" layoutY="315.0" />
+                        <Label layoutX="282.0" layoutY="52.0" text="Player_ID" />
                         <Label layoutX="277.0" layoutY="94.0" text="First Name" />
                         <Label layoutX="278.0" layoutY="139.0" text="Last Name" />
                         <Label layoutX="281.0" layoutY="186.0" text="Address" />
                         <Label layoutX="274.0" layoutY="230.0" text="Postal Code" />
                         <Label layoutX="280.0" layoutY="273.0" text="Province" />
                         <Label layoutX="266.0" layoutY="319.0" text="Phone Number" />
-                        <Button fx:id="insertPlayerInformation" layoutX="47.0" layoutY="103.0" mnemonicParsing="false" onAction="#onInsertPlayerInformationButtonClick" text="Insert Player Information" />
-                        <Button fx:id="updatePlayerInformation" layoutX="41.0" layoutY="218.0" mnemonicParsing="false" onAction="#onUpdatePlayerInformationButtonClick" text="Update Player Information " />
+                        <Button fx:id="updatePlayerInformation" layoutX="702.0" layoutY="144.0" mnemonicParsing="false" onAction="#onUpdatePlayerInformationButtonClick" text="Update Player Information " />
+                        <Button fx:id="insertPlayerInformation" layoutX="708.0" layoutY="195.0" mnemonicParsing="false" onAction="#onInsertPlayerInformationButtonClick" text="Insert Player Information" />
+                        <Button fx:id="viewplayertabledata" layoutX="727.0" layoutY="99.0" mnemonicParsing="false" onAction="#onViewPlayerTableButtonClick" text="View Player Table" />
+                        <TableView fx:id="display_player_table" layoutX="206.0" layoutY="371.0" prefHeight="299.0" prefWidth="538.0">
+                           <columns>
+                            <TableColumn fx:id="player_id_table" prefWidth="64.0" text="Player_ID" />
+                              <TableColumn fx:id="first_name_table" prefWidth="75.0" text="First Name" />
+                              <TableColumn fx:id="last_name_table" prefWidth="75.0" text="LastName" />
+                              <TableColumn fx:id="address_table" prefWidth="75.0" text="Address" />
+                              <TableColumn fx:id="postal_code_table" prefWidth="75.0" text="Postal Code" />
+                              <TableColumn fx:id="province_table" prefWidth="75.0" text="Province" />
+                              <TableColumn fx:id="phone_number_table" prefWidth="101.0" text="Phone Number" />
+                           </columns>
+                        </TableView>
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab text="Game Information">
+          <Tab fx:id="viewgametabledata" text="Game Information">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TextField fx:id="game_id" layoutX="385.0" layoutY="124.0" />
-                        <TextField fx:id="game_title" layoutX="385.0" layoutY="194.0" />
-                        <Label layoutX="279.0" layoutY="128.0" text="Game ID" />
+                        <TextField fx:id="gi_game_id" layoutX="385.0" layoutY="124.0" />
+                        <TextField fx:id="gi_game_title" layoutX="385.0" layoutY="194.0" />
+                        <Label layoutX="279.0" layoutY="128.0" text="Game_ID" />
                         <Label layoutX="269.0" layoutY="198.0" text="Game Name" />
-                        <Button fx:id="insertGameInformation" layoutX="51.0" layoutY="161.0" mnemonicParsing="false" onAction="#onInsertGameInformationButtonClick" text="Insert Game Information" />
+                        <Button fx:id="updateGameInformation" layoutX="693.0" layoutY="157.0" mnemonicParsing="false" onAction="#onUpdateGameInformationButtonClick" text="Update Game Information" />
+                        <Button fx:id="insertGameInformation" layoutX="697.0" layoutY="194.0" mnemonicParsing="false" onAction="#onInsertGameInformationButtonClick" text="Insert Game Information" />
+                        <TableView fx:id="display_game_table" layoutX="382.0" layoutY="330.0" prefHeight="336.0" prefWidth="167.0">
+                           <columns>
+                            <TableColumn fx:id="game_id_table" prefWidth="86.0" text="Game_ID" />
+                              <TableColumn fx:id="game_title_table" prefWidth="73.0" text="Game Title" />
+                           </columns>
+                        </TableView>
+                        <Button fx:id="viewgametable" layoutX="716.0" layoutY="124.0" mnemonicParsing="false" onAction="#onViewGameTableButtonClick" text="View Game Table" />
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
+            <Tab text="Player and Game Information (SET LAST)">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="458.0" prefWidth="984.0">
+                     <children>
+                        <TextField fx:id="pgi_player_game_id" layoutX="351.0" layoutY="59.0" />
+                        <TextField fx:id="pgi_game_id" layoutX="351.0" layoutY="99.0" />
+                        <TextField fx:id="pgi_player_id" layoutX="351.0" layoutY="144.0" />
+                        <TextField fx:id="pgi_playing_date" layoutX="351.0" layoutY="186.0" />
+                        <TextField fx:id="pgi_score" layoutX="351.0" layoutY="230.0" />
+                        <Label layoutX="226.0" layoutY="63.0" text="Player_Game_ID" />
+                        <Label layoutX="245.0" layoutY="103.0" text="Game_ID" />
+                        <Label layoutX="241.0" layoutY="148.0" text="Player_ID" />
+                        <Label layoutX="235.0" layoutY="190.0" text="Playing_Date" />
+                        <Label layoutX="252.0" layoutY="234.0" text="Score" />
+                        <Button fx:id="insertPlayerAndGameInformation" layoutX="666.0" layoutY="166.0" mnemonicParsing="false" onAction="#onInsertPlayerAndGameInformationButtonClick" prefHeight="25.0" prefWidth="217.0" text="Insert Player and Game Information " />
+                        <TableView fx:id="display_playerandgame_table" layoutX="311.0" layoutY="357.0" prefHeight="283.0" prefWidth="380.0">
+                          <columns>
+                              <TableColumn fx:id="player_game_id_table" prefWidth="95.0" text="Player_Game_ID" />
+                              <TableColumn fx:id="playing_date_table" prefWidth="82.0" text="Playing Date" />
+                              <TableColumn fx:id="score_table" prefWidth="45.0" text="Score" />
+                              <TableColumn fx:id="player_id_playerandgametable" prefWidth="75.0" text="Player_ID" />
+                              <TableColumn fx:id="game_id_playerandgametable" prefWidth="75.0" text="Game_ID" />
+                          </columns>
+                        </TableView>
+                        <Button fx:id="viewplayerandgametable" layoutX="691.0" layoutY="112.0" mnemonicParsing="false" onAction="#onViewPlayerAndGameTableButtonClick" text="View Player and Game Table" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
         </tabs>
       </TabPane>
+      <TextArea layoutX="37.0" layoutY="744.0" prefHeight="42.0" prefWidth="922.0" text="- Enter 'Player' and 'Game' table information seperately before using buttons above to facilitate adding and updating of 'Player and Game' table entries via secondary tabs ! &#10;- Reference the created Game_ID or Player_ID exactly when doing so !" />
    </children>
 </AnchorPane>
