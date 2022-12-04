@@ -32,8 +32,8 @@
                         <Label layoutX="280.0" layoutY="273.0" text="Province" />
                         <Label layoutX="266.0" layoutY="319.0" text="Phone Number" />
                         <Button fx:id="updatePlayerInformation" layoutX="702.0" layoutY="144.0" mnemonicParsing="false" onAction="#onUpdatePlayerInformationButtonClick" text="Update Player Information " />
-                        <Button fx:id="insertPlayerInformation" layoutX="708.0" layoutY="195.0" mnemonicParsing="false" onAction="#onInsertPlayerInformationButtonClick" text="Insert Player Information" />
-                        <Button fx:id="viewplayertabledata" layoutX="727.0" layoutY="99.0" mnemonicParsing="false" onAction="#onViewPlayerTableButtonClick" text="View Player Table" />
+                        <Button fx:id="insertPlayerInformation" layoutX="708.0" layoutY="182.0" mnemonicParsing="false" onAction="#onInsertPlayerInformationButtonClick" text="Insert Player Information" />
+                        <Button fx:id="viewplayertabledata" layoutX="728.0" layoutY="103.0" mnemonicParsing="false" onAction="#onViewPlayerTableButtonClick" text="View Player Table" />
                         <TableView fx:id="display_player_table" layoutX="206.0" layoutY="371.0" prefHeight="299.0" prefWidth="538.0">
                            <columns>
                             <TableColumn fx:id="player_id_table" prefWidth="64.0" text="Player_ID" />
@@ -45,6 +45,7 @@
                               <TableColumn fx:id="phone_number_table" prefWidth="101.0" text="Phone Number" />
                            </columns>
                         </TableView>
+                        <Button fx:id="selectplayerid" layoutX="733.0" layoutY="69.0" mnemonicParsing="false" onAction="#onSelectPlayerIdButtonClick" text="Select Player ID" />
                      </children>
                   </AnchorPane>
             </content>
@@ -66,6 +67,7 @@
                            </columns>
                         </TableView>
                         <Button fx:id="viewgametable" layoutX="716.0" layoutY="124.0" mnemonicParsing="false" onAction="#onViewGameTableButtonClick" text="View Game Table" />
+                        <Button fx:id="selectgameid" layoutX="722.0" layoutY="89.0" mnemonicParsing="false" onAction="#onSelectGameIdButtonClick" text="Select Game ID" />
                      </children>
                   </AnchorPane>
             </content>

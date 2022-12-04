@@ -91,6 +91,27 @@ public class DBUtil {   // Main DB class
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////// Querying one row's Data for Update /////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public static ResultSet queryRow(String sql) throws SQLException{
+        CachedRowSet crs = RowSetProvider.newFactory().createCachedRowSet(); // allows caching of resultset when connection is ended - has to be available above dbConnect so that it cann be accessed as a result set after the ocnnection is closed
+
+        dbConnect();
+
+        ResultSet rs = null;
+        statement.setMaxRows(1);    // limits the result set to 1 row only
+        rs = statement.executeQuery(sql);
+
+        crs.populate(rs);   // cached row set caches the one row form resultset
+        dbDisconnect();
+        return crs;     // return the crs object which is a resultset anyway
+
+    }
+
+
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////// QUERYING DATA From 3 tables individually ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -208,24 +229,28 @@ public class DBUtil {   // Main DB class
     public static void updatePlayerInformation(String tableName, int player_id, String first_name, String last_name, String address, String postal_code, String province, String phone_number) throws SQLException{
         dbConnect();
 
-        JFrame frame;
-        frame = new JFrame();
-
-        int searchP_id = Integer.parseInt(JOptionPane.showInputDialog(frame, "Please enter the ID of the Player you would like to update"));
-
-        String sql = "UPDATE player SET " +" first_name= '" + first_name + "'," + " last_name= '" + last_name + "'," + " address= '" + address + "'," + " postal_code= '" + postal_code + "'," + " province= '" + province + "'," + " phone_number= '" + phone_number + "'" + " WHERE player_id =" + searchP_id + ";" ;
+        String sql = "UPDATE player SET" +" first_name= '" + first_name + "'," + " last_name= '" + last_name + "'," + " address= '" + address + "'," + " postal_code= '" + postal_code + "'," + " province= '" + province + "'," + " phone_number= '" + phone_number + "'" + " WHERE player_id =" + player_id ;
         statement.executeUpdate(sql);
 
         if (statement != null) {
             //Close Statement
             statement.close();
         }
-
-
-
-
+        dbDisconnect();
     }
 
+    public static void updateGameInformation(String tableName, int game_id, String game_title) throws SQLException{
+        dbConnect();
+
+        String sql = "UPDATE game SET" +" game_id= " + game_id + "," + " game_title= '" + game_title + "' WHERE game_id =" + game_id ;
+        statement.executeUpdate(sql);
+
+        if (statement != null) {
+            //Close Statement
+            statement.close();
+        }
+        dbDisconnect();
+    }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
